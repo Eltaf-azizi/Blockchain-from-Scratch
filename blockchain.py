@@ -1,10 +1,21 @@
 import hashlib
 import json
+from textwrap import dedent
 from time import time
 from uuid import uuid4
+from flask import Flask
 
 
 class Blockchain(object):
+
+    # Instantiate our Node
+    app = Flask(__name__)
+
+    # Generate a globally unique address for this node
+    node_identifier = str(uuid4()).replace('-', '')
+
+
+    
     def __init__(self):
         self.chain = []
         self.current_transactions = []
@@ -87,5 +98,12 @@ class Blockchain(object):
     @staticmethod
     def valid_proof(last_proof, proof):
         """
-        
+        Validates the Proof: Does hash(last_proof, proof) contain leading 4 zeroes?
+        :param last_proof: <int> previous proof
+        :param proof: <int> Current Proof
+        :return: <bool> True if correct, False if not.
         """
+
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
