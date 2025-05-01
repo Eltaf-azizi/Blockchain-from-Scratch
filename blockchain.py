@@ -15,7 +15,7 @@ class Blockchain(object):
     node_identifier = str(uuid4()).replace('-', '')
 
 
-    
+
     def __init__(self):
         self.chain = []
         self.current_transactions = []
