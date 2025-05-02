@@ -22,8 +22,24 @@ def mine():
         amount=1,
     )
 
- 
- 
+
+    # Forge the new Block by adding it to the chain
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(proof, previous_hash)
+
+
+    response = {
+        'message': "New Block Forged",
+        'index': block['index'],
+        'transactions': block['transactions'],
+        'proof': block['proof'],
+        'previous_hash': block['previous_hash'],
+    }
+    
+    return jsonify(response), 200
+
+
+
 class Blockchain(object):
     # Instantiate our Node
     app = Flask(__name__)
