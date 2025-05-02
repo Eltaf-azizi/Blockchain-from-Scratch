@@ -1,11 +1,29 @@
 import hashlib
 import json
-from textwrap import dedent
 from time import time
 from uuid import uuid4
 from flask import Flask, jsonify, request
 
 
+
+
+@app.route('/mine', methods=['GET'])
+def mine():
+    # We run the proof of work algorithm to get the next proof...
+    last_block = blockchain.last_block
+    last_proof = last_block['proof']
+    proof = blockchain.proof_of_work(last_proof)
+
+    # We must receive a reward for finding the proof.
+    # The sender is "0" to signify that this node has mined a new coin.
+    blockchain.new_transaction(
+        sender="0",
+        recipient=node_identifier,
+        amount=1,
+    )
+
+ 
+ 
 class Blockchain(object):
     # Instantiate our Node
     app = Flask(__name__)
