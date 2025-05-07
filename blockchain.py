@@ -4,6 +4,7 @@ from time import time
 from uuid import uuid4
 from flask import Flask, jsonify, request
 from urllib.parse import urlparse
+import requests
 
 
 class Blockchain(object):
@@ -12,6 +13,26 @@ class Blockchain(object):
         self.chain = []
         self.current_transactions = []
         self.nodes = set()
+
+
+
+    def valid_chain(self, chain):
+        """
+        Determine if a given blockchain is valid.
+        :param chain: <list> A blockchain
+        :return: <bool> true if valid, false if not
+        """
+
+        last_block = chain[0]
+        current_index = 1
+
+        while current_index < len(chain):
+            block = chain[current_index]
+            print(f'{last_block}')
+            print(f'{block}')
+            print("\n------------\n")
+        
+
 
 
 
