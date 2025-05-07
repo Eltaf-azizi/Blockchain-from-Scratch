@@ -5,6 +5,7 @@ from uuid import uuid4
 from flask import Flask, jsonify, request
 from urllib.parse import urlparse
 import requests
+from sqlalchemy.sql.functions import current_time
 
 
 class Blockchain(object):
@@ -31,7 +32,27 @@ class Blockchain(object):
             print(f'{last_block}')
             print(f'{block}')
             print("\n------------\n")
-        
+
+
+            # Check that the hash of the block is correct
+            if block['previous_hash'] != self.hash(last_block):
+                return False
+
+            last_block = block
+            current_index += 1
+
+        return True
+
+
+
+    def resolve_conflicts(self):
+        """
+        This is our Consensus algorithm, it resolves conflicts
+        by replacing our chain with the longest one in the network.
+        :return: <bool> True if our chain was replaced, false otherwise
+        """
+
+        neighbours = self.nodes
 
 
 
