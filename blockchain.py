@@ -75,7 +75,16 @@ class Blockchain(object):
                 if length > max_length and self.valid_chain(chain):
                     max_length = length
                     new_chain = chain
-                
+
+
+
+        # Replace our chain if we discovered a new, valid chain longer than ours
+        if new_chain:
+            self.chain = new_chain
+            return True
+
+        return False
+
 
 
 
@@ -245,6 +254,15 @@ def new_transaction():
     response = {'message': f'Transaction will be added to Block {index}'}
     return jsonify(response), 201
 
+
+@app.route('/nodes/register', methods=['POST'])
+def register_nodes():
+    values = request.get_json()
+
+
+    nodes = values.get('nodes')
+    if nodes is None:
+        return "Error: Please supply a valid list of nodes", 400
 
 
 if __name__ == '__main__':
