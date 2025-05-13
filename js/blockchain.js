@@ -77,3 +77,26 @@ class Blockchain {
     static nonce() {
         return crypto.createHash("sha256").update(crypto.randomBytes(32)).digest("hex");
     }
+
+    /**
+     * Proof of Work mining algorithm
+     *
+     * We hash the block with random string until the hash begins with
+     * a "difficulty" number of 0s.
+     */
+    mine(blockToMine = null, difficulty = 4) {
+        const block = blockToMine || this.lastBlock();
+
+        while (true) {
+            block.nonce = Blockchain.nonce();
+            if (Blockchain.powIsAcceptable(Blockchain.hash(block), difficulty)) {
+                console.log("We mined a block!")
+                console.log(` - Block hash: ${Blockchain.hash(block)}`);
+                console.log(` - nonce:      ${block.nonce}`);
+                return block;
+            }
+        }
+    }
+}
+
+module.exports = Blockchain;
