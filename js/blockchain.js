@@ -34,3 +34,22 @@ class Blockchain {
             previousHash,
             nonce
         };
+        
+        block.hash = Blockchain.hash(block);
+
+        console.log(`Created block ${block.index}`);
+
+        // Add the new block to the blockchain
+        this.chain.push(block);
+
+        // Reset pending transactions
+        this.pendingTransactions = [];
+    }
+
+    /**
+     * Generates a SHA-256 hash of the block
+     */
+    static hash(block) {
+        const blockString = JSON.stringify(block, Object.keys(block).sort());
+        return crypto.createHash("sha256").update(blockString).digest("hex");
+    }
