@@ -53,3 +53,27 @@ class Blockchain {
         const blockString = JSON.stringify(block, Object.keys(block).sort());
         return crypto.createHash("sha256").update(blockString).digest("hex");
     }
+
+    /**
+     * Returns the last block in the chain
+     */
+    lastBlock() {
+        return this.chain.length && this.chain[this.chain.length - 1];
+    }
+
+    /**
+     * Determines if a hash begins with a "difficulty" number of 0s
+     *
+     * @param hashOfBlock: the hash of the block (hex string)
+     * @param difficulty: an integer defining the difficulty
+     */
+    static powIsAcceptable(hashOfBlock, difficulty) {
+        return hashOfBlock.slice(0, difficulty) === "0".repeat(difficulty);
+    }
+
+    /**
+     * Generates a random 32 byte string
+     */
+    static nonce() {
+        return crypto.createHash("sha256").update(crypto.randomBytes(32)).digest("hex");
+    }
