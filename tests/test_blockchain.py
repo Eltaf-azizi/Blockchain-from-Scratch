@@ -70,3 +70,25 @@ class TestBlocksAndTransactions(BlockchainTestCase):
         assert transaction['sender'] == 'a'
         assert transaction['recipient'] == 'b'
         assert transaction['amount'] == 1
+
+
+
+    def test_block_resets_transactions(self):
+        self.create_transaction()
+
+        initial_length = len(self.blockchain.current_transactions)
+
+        self.create_block()
+
+        current_length = len(self.blockchain.current_transactions)
+
+        assert initial_length == 1
+        assert current_length == 0
+
+    def test_return_last_block(self):
+        self.create_block()
+
+        created_block = self.blockchain.last_block
+
+        assert len(self.blockchain.chain) == 2
+        assert created_block is self.blockchain.chain[-1]
