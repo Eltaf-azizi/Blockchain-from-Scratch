@@ -49,3 +49,25 @@ namespace BlockChainDemo
                 //Check that the hash of the block is correct
                 if (block.PreviousHash != GetHash(lastBlock))
                     return false;
+
+                //Check that the Proof of Work is correct
+                if (!IsValidProof(lastBlock.Proof, block.Proof, lastBlock.PreviousHash))
+                    return false;
+
+                lastBlock = block;
+                currentIndex++;
+            }
+
+            return true;
+        }
+
+        private bool ResolveConflicts()
+        {
+            List<Block> newChain = null;
+            int maxLength = _chain.Count;
+
+            foreach (Node node in _nodes)
+            {
+                var url = new Uri(node.Address, "/chain");
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                var response = (HttpWebResponse)request.GetResponse();
