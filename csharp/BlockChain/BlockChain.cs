@@ -71,3 +71,21 @@ namespace BlockChainDemo
                 var url = new Uri(node.Address, "/chain");
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 var response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var model = new
+                    {
+                        chain = new List<Block>(),
+                        length = 0
+                    };
+                    string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                    var data = JsonConvert.DeserializeAnonymousType(json, model);
+
+                    if (data.chain.Count > _chain.Count && IsValidChain(data.chain))
+                    {
+                        maxLength = data.chain.Count;
+                        newChain = data.chain;
+                    }
+                }
+            }
