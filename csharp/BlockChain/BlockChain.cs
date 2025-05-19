@@ -109,3 +109,24 @@ namespace BlockChainDemo
                 Proof = proof,
                 PreviousHash = previousHash ?? GetHash(_chain.Last())
             };
+
+            _currentTransactions.Clear();
+            _chain.Add(block);
+            return block;
+        }
+
+        private int CreateProofOfWork(int lastProof, string previousHash)
+        {
+            int proof = 0;
+            while (!IsValidProof(lastProof, proof, previousHash))
+                proof++;
+
+            return proof;
+        }
+
+        private bool IsValidProof(int lastProof, int proof, string previousHash)
+        {
+            string guess = $"{lastProof}{proof}{previousHash}";
+            string result = GetSha256(guess);
+            return result.StartsWith("0000");
+        }
