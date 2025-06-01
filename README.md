@@ -19,7 +19,7 @@ A multi-language blockchain implementation with Python backend, JavaScript compo
     ├── blockchain.py # Core consensus implementation
     ├── package.json # JavaScript dependencies
     ├── package-lock.json # JS dependency locks
-
+    └── README.md # Project documentation
 
 ## 🛠 Multi-Language Components
 - **Python**: Core blockchain logic (`blockchain.py`)
@@ -27,8 +27,16 @@ A multi-language blockchain implementation with Python backend, JavaScript compo
 - **C#**: Utility classes and tooling
 
 
-    
-    └── README.md # Project documentation
+  ## ⚙️ Installation
+```bash
+# Clone repository
+git clone https://github.com/your-username/blockchain-from-scratch.git
+cd blockchain-from-scratch
 
+# Install Python dependencies
+pip install -r requirements.txt
+pipenv install  # Alternative using Pipenv
 
-    
+# Install JavaScript packages
+npm install
+```
