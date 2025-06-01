@@ -40,3 +40,13 @@ pipenv install  # Alternative using Pipenv
 # Install JavaScript packages
 npm install
 ```
+
+## 🎯 Usage
+```
+bash
+# Start Python blockchain node
+python blockchain.py
+
+# Run JavaScript components
+npm start
+```
