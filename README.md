@@ -19,6 +19,15 @@ A multi-language blockchain implementation with Python backend, JavaScript compo
     ├── blockchain.py # Core consensus implementation
     ├── package.json # JavaScript dependencies
     ├── package-lock.json # JS dependency locks
+
+
+## 🛠 Multi-Language Components
+- **Python**: Core blockchain logic (`blockchain.py`)
+- **JavaScript**: Frontend/auxiliary components
+- **C#**: Utility classes and tooling
+
+
+    
     └── README.md # Project documentation
 
 
