@@ -50,3 +50,21 @@ python blockchain.py
 # Run JavaScript components
 npm start
 ```
+
+## 🤝 Contributing
+We welcome contributions to any language component:
+
+1. Python enhancements
+
+2. JavaScript UI improvements
+
+3. C# utility development
+
+Follow standard Git workflow:
+
+```bash
+git checkout -b feature/your-feature
+git commit -am "Add meaningful message"
+git push origin feature/your-feature
+```
+
